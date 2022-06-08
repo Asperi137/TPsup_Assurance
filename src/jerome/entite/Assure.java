@@ -142,8 +142,8 @@ public class Assure {
         return String.format("nom prenom : %s %n"
                                      + "age : %d %n"
                                      + "titulaire du permis depuis : %d %n"
-                                     + "nombre d'accident : %s %n"
-                                     + assurance,
-                nomPrenom, age, dureePermis, nbAccident);
+                                     + "nombre d'accident : %s %n",
+                nomPrenom, age, dureePermis, nbAccident)
+                       + assurance;
     }
 }
