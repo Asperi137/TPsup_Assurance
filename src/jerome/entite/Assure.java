@@ -18,7 +18,10 @@ public class Assure {
      * @param dureePermisV the duree permis v
      * @param nbAccidentV  the nb accident v
      */
-    public Assure(final String nomPrenomV, final int ageV, final int dureePermisV, final int nbAccidentV) {
+    public Assure(final String nomPrenomV,
+                  final int ageV,
+                  final int dureePermisV,
+                  final int nbAccidentV) {
         nomPrenom = nomPrenomV;
         age = ageV;
         dureePermis = dureePermisV;
@@ -47,10 +50,10 @@ public class Assure {
     /**
      * Sets assurance.
      *
-     * @param assurance the assurance
+     * @param assuranceV the assurance
      */
-    public void setAssurance(Assurance assurance) {
-        this.assurance = assurance;
+    public void setAssurance(final Assurance assuranceV) {
+        this.assurance = assuranceV;
     }
 
     /**
@@ -65,10 +68,10 @@ public class Assure {
     /**
      * Sets age.
      *
-     * @param age the age
+     * @param ageV the age
      */
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(final int ageV) {
+        this.age = ageV;
         int valeur = assurance.calculAssu(age, dureePermis, nbAccident);
         assurance.setValeurAssu(valeur);
     }
@@ -85,11 +88,11 @@ public class Assure {
     /**
      * Sets duree permis.
      *
-     * @param dureePermis the duree permis
+     * @param dureePermisV the duree permis
      */
-    public void setDureePermis(int dureePermis) {
-        this.dureePermis = dureePermis;
-        int valeur = assurance.calculAssu(age, dureePermis, nbAccident);
+    public void setDureePermis(final int dureePermisV) {
+        this.dureePermis = dureePermisV;
+        int valeur = assurance.calculAssu(age, dureePermisV, nbAccident);
         assurance.setValeurAssu(valeur);
     }
 
@@ -105,10 +108,10 @@ public class Assure {
     /**
      * Sets nb accident.
      *
-     * @param nbAccident the nb accident
+     * @param nbAccidentV the nb accident
      */
-    public void setNbAccident(int nbAccident) {
-        this.nbAccident = nbAccident;
+    public void setNbAccident(final int nbAccidentV) {
+        this.nbAccident = nbAccidentV;
     }
 
     /**
@@ -122,7 +125,7 @@ public class Assure {
     }
 
     /**
-     * Ajouter anciennete.
+     * Ajouter 1 a l'anciennete.
      */
     public void ajouterAnciennete() {
         assurance.setAnciennete(assurance.getAnciennete() + 1);
@@ -131,13 +134,16 @@ public class Assure {
 
     }
 
+    /**
+     * Surcharge du toString.
+     */
     @Override
     public String toString() {
-        return String.format("nom prenom : %s \n"
-                                     + "age : %d \n"
-                                     + "titulaire du permis depuis : %d \n"
-                                     + "nombre d'accident : %s \n"
-                                     + assurance
-                , nomPrenom, age, dureePermis, nbAccident);
+        return String.format("nom prenom : %s %n"
+                                     + "age : %d %n"
+                                     + "titulaire du permis depuis : %d %n"
+                                     + "nombre d'accident : %s %n"
+                                     + assurance,
+                nomPrenom, age, dureePermis, nbAccident);
     }
 }

@@ -27,7 +27,7 @@ public class Assurance {
     /**
      * The constant Avantage.
      */
-    public static final int Avantage = 1;
+    public static final int AVANTAGE = 1;
     private int valeurAssu;
     private int anciennete;
 
@@ -38,7 +38,9 @@ public class Assurance {
      * @param dureePermisV the duree permis v
      * @param nbAccidentV  the nb accident v
      */
-    public Assurance(final int ageV, final int dureePermisV, final int nbAccidentV) {
+    public Assurance(final int ageV,
+                     final int dureePermisV,
+                     final int nbAccidentV) {
         int valeur = calculAssu(ageV, dureePermisV, nbAccidentV);
         setValeurAssu(valeur);
         setAnciennete(0);
@@ -56,10 +58,10 @@ public class Assurance {
     /**
      * Sets anciennete.
      *
-     * @param anciennete the anciennete
+     * @param ancienneteV the anciennete
      */
-    public void setAnciennete(int anciennete) {
-        this.anciennete = anciennete;
+    public void setAnciennete(final int ancienneteV) {
+        this.anciennete = ancienneteV;
     }
 
     /**
@@ -74,10 +76,10 @@ public class Assurance {
     /**
      * Sets valeur assu.
      *
-     * @param valeurAssu the valeur assu
+     * @param valeurAssuV the valeur assu
      */
-    public void setValeurAssu(int valeurAssu) {
-        this.valeurAssu = valeurAssu;
+    public void setValeurAssu(final int valeurAssuV) {
+        this.valeurAssu = valeurAssuV;
     }
 
     /**
@@ -88,7 +90,9 @@ public class Assurance {
      * @param nbAccident  the nb accident
      * @return the int
      */
-    public int calculAssu(final int age, final int dureePermis, final int nbAccident) {
+    public int calculAssu(final int age,
+                          final int dureePermis,
+                          final int nbAccident) {
         int valeur = VERT - nbAccident;
         if (age < 25) {
             valeur -= 1;
@@ -97,7 +101,7 @@ public class Assurance {
             valeur -= 1;
         }
         if (getAnciennete() >= 5) {
-            valeur += Avantage;
+            valeur += AVANTAGE;
         }
         if (valeur < 0) {
             valeur = REFUSEE;
@@ -105,28 +109,31 @@ public class Assurance {
         return valeur;
     }
 
+    /**
+     * Surcharge du toString.
+     */
     @Override
     public String toString() {
         String txt = "tarif assurance : ";
         switch (valeurAssu) {
             case BLEU:
-                txt += "Bleu \n";
+                txt += "Bleu %n";
                 break;
             case VERT:
-                txt += "Vert \n";
+                txt += "Vert %n";
                 break;
             case ORANGE:
-                txt += "Orange \n";
+                txt += "Orange %n";
                 break;
             case ROUGE:
-                txt += "Rouge \n";
+                txt += "Rouge %n";
                 break;
             default: {
-                txt += "non assuré\n";
+                txt += "non assuré%n";
                 return txt;
             }
         }
-        txt += String.format("ancienneté : %d \n", anciennete);
+        txt += String.format("ancienneté : %d %n", anciennete);
         return txt;
     }
 }
