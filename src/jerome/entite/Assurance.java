@@ -1,5 +1,7 @@
 package jerome.entite;
 
+import java.time.LocalDate;
+
 /**
  * The type Assurance.
  */
@@ -29,48 +31,29 @@ public class Assurance {
      */
     public static final int AVANTAGE = 1;
     private int valeurAssu;
-    private int anciennete;
+    private LocalDate dateEntrer;
 
     /**
      * Instantiates a new Assurance.
      *
-     * @param ageV         the age v
-     * @param dureePermisV the duree permis v
-     * @param nbAccidentV  the nb accident v
+     * @param dateNaissV  the age v
+     * @param datePermisV the duree permis v
+     * @param nbAccidentV the nb accident v
      */
-    public Assurance(final int ageV,
-                     final int dureePermisV,
+    public Assurance(final LocalDate dateNaissV,
+                     final LocalDate datePermisV,
                      final int nbAccidentV) {
-        int valeur = calculAssu(ageV, dureePermisV, nbAccidentV);
+        dateEntrer = LocalDate.now();
+        int valeur = calculAssu(dateNaissV, datePermisV, nbAccidentV);
         setValeurAssu(valeur);
-        setAnciennete(0);
     }
 
-    /**
-     * Gets anciennete.
-     *
-     * @return the anciennete
-     */
-    public int getAnciennete() {
-        return anciennete;
+    public LocalDate getDateEntrer() {
+        return dateEntrer;
     }
 
-    /**
-     * Sets anciennete.
-     *
-     * @param ancienneteV the anciennete
-     */
-    public void setAnciennete(final int ancienneteV) {
-        this.anciennete = ancienneteV;
-    }
-
-    /**
-     * Gets valeur assu.
-     *
-     * @return the valeur assu
-     */
-    public int getValeurAssu() {
-        return valeurAssu;
+    public void setDateEntrer(LocalDate dateEntrer) {
+        this.dateEntrer = dateEntrer;
     }
 
     /**
@@ -85,22 +68,24 @@ public class Assurance {
     /**
      * Calcul assu int.
      *
-     * @param age         the age
-     * @param dureePermis the duree permis
-     * @param nbAccident  the nb accident
+     * @param dateNaiss  the age
+     * @param datePermis the duree permis
+     * @param nbAccident the nb accident
      * @return the int
      */
-    public int calculAssu(final int age,
-                          final int dureePermis,
+    public int calculAssu(final LocalDate dateNaiss,
+                          final LocalDate datePermis,
                           final int nbAccident) {
+        int age = LocalDate.now().getYear() - dateNaiss.getYear();
+        int dureePerm = LocalDate.now().getYear() - datePermis.getYear();
         int valeur = VERT - nbAccident;
         if (age < 25) {
             valeur -= 1;
         }
-        if (dureePermis < 2) {
+        if (dureePerm < 2) {
             valeur -= 1;
         }
-        if (getAnciennete() >= 5) {
+        if ((LocalDate.now().getYear() - dateEntrer.getYear()) >= 5) {
             valeur += AVANTAGE;
         }
         if (valeur < 0) {
@@ -116,24 +101,18 @@ public class Assurance {
     public String toString() {
         String txt = "tarif assurance : ";
         switch (valeurAssu) {
-            case BLEU:
-                txt += "Bleu %n";
-                break;
-            case VERT:
-                txt += "Vert %n";
-                break;
-            case ORANGE:
-                txt += "Orange %n";
-                break;
-            case ROUGE:
-                txt += "Rouge %n";
-                break;
-            default: {
-                txt += "non assuré%n";
+            case BLEU -> txt = String.format("%s Bleu", txt);
+            case VERT -> txt = String.format("%s Vert", txt);
+            case ORANGE -> txt = String.format("%s Orange", txt);
+            case ROUGE -> txt = String.format("%s Rouge", txt);
+            default -> {
+                txt = String.format("non assuré  %n", txt);
                 return txt;
             }
         }
-        txt += String.format("ancienneté : %d %n", anciennete);
+        txt = String.format("%s %n"
+                                    + "ancienneté : %d %n ",
+                txt, LocalDate.now().getYear() - dateEntrer.getYear());
         return txt;
     }
 }
